@@ -14,7 +14,7 @@ RUN dotnet build "GoChat.csproj" -c Release -o /app
 FROM build AS publish
 RUN dotnet publish "GoChat.csproj" -c Release -o /app
 
-FROM base AS final
+ base FROMAS final
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "GoChat.dll"]
