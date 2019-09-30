@@ -18,8 +18,7 @@ namespace GoChat.DAL.Entities
             optionsBuilder.UseMySql(GetConnectionString());
         }
       
-        public DbSet<AppUser> Users;
-
+      
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
