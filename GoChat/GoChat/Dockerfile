@@ -9,12 +9,12 @@ COPY ["GoChat/GoChat.csproj", "GoChat/"]
 RUN dotnet restore "GoChat/GoChat.csproj"
 COPY . .
 WORKDIR "/src/GoChat"
-RUN dotnet build "GoChat.csproj" -c Release -o /app
+RUN dotnet build "GoChat.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GoChat.csproj" -c Release -o /app
+RUN dotnet publish "GoChat.csproj" -c Release -o /app/publish
 
- base FROMAS final
+FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "GoChat.dll"]
