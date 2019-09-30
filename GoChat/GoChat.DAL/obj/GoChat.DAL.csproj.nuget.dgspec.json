@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Desktop\\Individual\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {}
+    "C:\\Users\\Admin\\Desktop\\Ind\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Desktop\\Individual\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
+    "C:\\Users\\Admin\\Desktop\\Ind\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Individual\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Ind\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
         "projectName": "GoChat.DAL",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\Individual\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
+        "projectPath": "C:\\Users\\Admin\\Desktop\\Ind\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\Individual\\GoChat\\GoChat.DAL\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\Desktop\\Ind\\Chat\\GoChat\\GoChat.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -41,6 +41,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
