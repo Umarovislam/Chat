@@ -46,6 +46,3 @@ C:\Users\Admin\Desktop\Individual\Chat\GoChat\GoChat\bin\Debug\netcoreapp2.2\GoC
 C:\Users\Admin\Desktop\Individual\Chat\GoChat\GoChat\obj\Debug\netcoreapp2.2\GoChat.RazorAssemblyInfo.cache
 C:\Users\Admin\Desktop\Individual\Chat\GoChat\GoChat\obj\Debug\netcoreapp2.2\GoChat.RazorAssemblyInfo.cs
 C:\Users\Admin\Desktop\Individual\Chat\GoChat\GoChat\obj\Debug\netcoreapp2.2\GoChat.RazorTargetAssemblyInfo.cache
-C:\Users\Admin\Desktop\Individual\Chat\GoChat\GoChat\bin\Debug\netcoreapp2.2\GoChat.DAL.dll
-C:\Users\Admin\Desktop\Individual\Chat\GoChat\GoChat\bin\Debug\netcoreapp2.2\GoChat.DAL.pdb
-C:\Users\Admin\Desktop\Individual\Chat\GoChat\GoChat\obj\Debug\netcoreapp2.2\GoChat.csproj.CopyComplete
