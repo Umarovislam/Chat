@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAwRJnT4MUcUCG7nglzlplbAAAAAACAAAAAAAQZgAAAAEAACAAAAAhM21OSOuhdziFRMqfrPPJNotzbm41lwIHAKwQ53sVsQAAAAAOgAAAAAIAACAAAAD9iv2LeeB/ODnLWMttBwdNvL0NHWtRupRQTYxi8ovTCIAAAAAuNP5oyCtF4VdDJ3angjzOVOvHph0/IHvuHVDyFlQ4DmcvUgJfhpEPD0OG4Piq/cU3YUfFkcoV5CKVSL8M1My3hyd6Uq0Ed91sWeL89AXHRj4htpzlwXPO04iQsS/grQFOpio9EIXqCtC4M1phVmBP15dlAMBsXChxuZWtwM1fmkAAAAC7S0GtVway6hzEvcXgh46PMgxCwMvPZhhHPuUV5nH6saWVcuBrvJQ9N3uGoCoYiJdcySmO7aq9M4smWRhMjN7H</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="GoChat.Entities.ApplicationDbContext">
+      <Value>Data Source=tcp:gochat123dbserver.database.windows.net,1433%3bInitial Catalog=GoChat123_db%3bUser Id=User%40gochat123dbserver%3bPassword=UmarovIslam0898</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

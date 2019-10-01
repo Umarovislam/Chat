@@ -11,10 +11,12 @@ namespace GoChat.DAL.Entities
     public class AppDbContex : DbContext
     {
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<Friends> Friends { get; set; }
+        public DbSet<Chat>Chats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=localhost;UserId=root;Password=UmarovIslam0898;database=gochatdb;");
+            optionsBuilder.UseMySQL("server=localhost;user id=root;Password=UmarovIslam0898;database=gochatdb");
         }
     }
 }

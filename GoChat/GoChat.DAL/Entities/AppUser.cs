@@ -7,7 +7,7 @@ namespace GoChat.DAL.Entities
 {
     public class AppUser : IdentityUser
     {
-        public ICollection<Chat> Chats { get; set; }
+        public PreChat Chats { get; set; }
         public string PhotoLocation { get; set; }
         public ICollection<Friends> MyFriends{get; set; }
     }
