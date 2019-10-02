@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using Encoding = System.Text.Encoding;
 
 namespace GoChat
@@ -55,8 +56,10 @@ namespace GoChat
                     };
                 });
 
-            services.AddMvc();
-
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver =
+                    new DefaultContractResolver()); ;
+            services.AddSignalR(options => options.EnableDetailedErrors = true);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
