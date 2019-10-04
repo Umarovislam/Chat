@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using GoChat.Entities;
+using GoChat.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,7 +22,7 @@ namespace GoChat
         {
             Configuration = configuration;
         }
-
+        readonly string MyAllowSpecificOrigins = "Access-Control-Allow-Origin";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -31,7 +32,7 @@ namespace GoChat
             services.AddDbContext<ApplicationDbContext>();
 
             // ===== Add Identity ========
-            services.AddIdentity<IdentityUser,IdentityRole>()
+            services.AddIdentity<ApplicationUser,IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
@@ -55,7 +56,16 @@ namespace GoChat
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver =
                     new DefaultContractResolver()); ;
@@ -81,7 +91,16 @@ namespace GoChat
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.Use(async (ctx, next) =>
+            {
+                await next();
+                if (ctx.Response.StatusCode == 204)
+                {
+                    ctx.Response.ContentLength = 0;
+                }
+            });
             app.UseMvc();
+            app.UseCors(MyAllowSpecificOrigins);
             dbContext.Database.EnsureCreated();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

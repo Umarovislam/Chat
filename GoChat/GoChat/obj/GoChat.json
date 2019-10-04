@@ -77,6 +77,34 @@
         }
       }
     },
+    "/Account/ConfirmEmail": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Values": {
       "get": {
         "tags": [
@@ -279,10 +307,15 @@
       "RegisterDto": {
         "required": [
           "Email",
-          "Password"
+          "Password",
+          "UserName"
         ],
         "type": "object",
         "properties": {
+          "UserName": {
+            "type": "string",
+            "nullable": true
+          },
           "Email": {
             "type": "string",
             "nullable": true
@@ -290,6 +323,14 @@
           "Password": {
             "maxLength": 100,
             "minLength": 6,
+            "type": "string",
+            "nullable": true
+          },
+          "FullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "PhoneNumber": {
             "type": "string",
             "nullable": true
           }

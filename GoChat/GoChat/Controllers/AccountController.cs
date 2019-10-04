@@ -5,7 +5,10 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using GoChat.Email;
 using GoChat.Enities;
+using GoChat.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +21,13 @@ namespace GoChat.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
 
         public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             IConfiguration configuration
         )
         {
@@ -47,23 +50,53 @@ namespace GoChat.Controllers
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
         }
         [HttpPost]
-        public async Task<object> Register([FromBody] RegisterDto model)
+        public async Task<object> Register( RegisterDto model)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser()
             {
-                UserName = model.Email,
-                Email = model.Email
+                UserName = model.UserName,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                Name = model.FullName
             };
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var callbackUrl = Url.Action("ConfirmEmail",
+                    "Account",
+                    new { userId = user.Id, code = code },
+                    protocol: HttpContext.Request.Scheme);
+                SendGridEmailSender emailService = new SendGridEmailSender();
+                await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                    $"Confirm Registration : <a href='{callbackUrl}'>link</a>");
                 await _signInManager.SignInAsync(user, false);
-                return await GenerateJwtToken(model.Email, user);
+                return Content("Confirm Registration by email");
             }
 
             throw new ApplicationException("UNKNOWN_ERROR");
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<object> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return "model null";
+            }
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return null;
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+                return await GenerateJwtToken(userId, user);
+            else
+                return null;
+        }
+
 
         private async Task<object> GenerateJwtToken(string email, IdentityUser user)
         {
