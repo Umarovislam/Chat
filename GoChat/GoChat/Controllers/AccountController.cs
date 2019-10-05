@@ -37,17 +37,16 @@ namespace GoChat.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<object> Login(LoginDto model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-            if (result.Succeeded)
-            {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return await GenerateJwtToken(model.Email, appUser);
+            var user = await _userManager.FindByNameAsync(model.Email);
+            if (result.Succeeded && await _userManager.CheckPasswordAsync(user, model.Password))
+            { 
+                return await GenerateJwtToken(model.Email, user);
             }
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            return BadRequest(new {message = "UserName or password incorrect"});
         }
         [HttpPost]
         public async Task<object> Register( RegisterDto model)
@@ -70,7 +69,7 @@ namespace GoChat.Controllers
                     protocol: HttpContext.Request.Scheme);
                 SendGridEmailSender emailService = new SendGridEmailSender();
                 await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                    $"Confirm Registration : <a href='{callbackUrl}'>link</a>");
+                    $"Confirm Registration : <a href='http://localhost:4200/user/login'>link</a>");
                 await _signInManager.SignInAsync(user, false);
                 return Content("Confirm Registration by email");
             }
@@ -98,7 +97,7 @@ namespace GoChat.Controllers
         }
 
 
-        private async Task<object> GenerateJwtToken(string email, IdentityUser user)
+        private async Task<object> GenerateJwtToken(string email, ApplicationUser  user)
         {
             var claims = new List<Claim>
             {
@@ -118,8 +117,8 @@ namespace GoChat.Controllers
                 expires: expires,
                 signingCredentials: creds
             );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var tokens = new JwtSecurityTokenHandler().WriteToken(token);
+            return Ok(tokens);
         }
     }
 }

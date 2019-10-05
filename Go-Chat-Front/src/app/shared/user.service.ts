@@ -40,4 +40,12 @@ export class UserService {
     return this.http.post(this.BaseURI + '/Account/Register', body);
   }
 
+  login(formData) {
+    return this.http.post(this.BaseURI + '/Account/Login', formData);
+  }
+
+  getUserProfile() {
+    return this.http.get(this.BaseURI + '/UserProfile/GetUserProfile');
+  }
+
 }

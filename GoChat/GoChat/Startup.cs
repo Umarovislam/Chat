@@ -28,11 +28,11 @@ namespace GoChat
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
             services.AddDbContext<ApplicationDbContext>();
 
             // ===== Add Identity ========
-            services.AddIdentity<ApplicationUser,IdentityRole>()
+            services.AddIdentity<ApplicationUser,IdentityRole>(cfg => { cfg.SignIn.RequireConfirmedEmail = true; })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
@@ -50,6 +50,7 @@ namespace GoChat
                     cfg.SaveToken = true;
                     cfg.TokenValidationParameters = new TokenValidationParameters
                     {
+                        ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["JwtIssuer"],
                         ValidAudience = Configuration["JwtIssuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
@@ -66,6 +67,7 @@ namespace GoChat
                             .AllowAnyMethod();
                     });
             });
+            services.ConfigureExternalProviders(Configuration);
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver =
                     new DefaultContractResolver()); ;
@@ -79,6 +81,7 @@ namespace GoChat
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext dbContext)
         {
+           
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -91,14 +94,6 @@ namespace GoChat
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();
-            app.Use(async (ctx, next) =>
-            {
-                await next();
-                if (ctx.Response.StatusCode == 204)
-                {
-                    ctx.Response.ContentLength = 0;
-                }
-            });
             app.UseMvc();
             app.UseCors(MyAllowSpecificOrigins);
             dbContext.Database.EnsureCreated();

@@ -105,6 +105,18 @@
         }
       }
     },
+    "/UserProfile/GetUserProfile": {
+      "get": {
+        "tags": [
+          "UserProfile"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Values": {
       "get": {
         "tags": [
