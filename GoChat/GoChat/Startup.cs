@@ -31,6 +31,8 @@ namespace GoChat
             
             services.AddDbContext<ApplicationDbContext>();
 
+            
+
             // ===== Add Identity ========
             services.AddIdentity<ApplicationUser,IdentityRole>(cfg => { cfg.SignIn.RequireConfirmedEmail = true; })
                 .AddEntityFrameworkStores<ApplicationDbContext>()

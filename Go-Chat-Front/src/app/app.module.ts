@@ -14,7 +14,9 @@ import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import {AuthGuard} from './auth/auth.guard';
 import {AuthInterceptor} from './auth/auth.interceptor';
-
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import {errorInterceptorProvider} from './auth/error.interceptor';
 
 const routes: Routes = [
   {path: '', redirectTo: '/user/login', pathMatch: 'full'},
@@ -41,6 +43,7 @@ const routes: Routes = [
     FontAwesomeModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SocialLoginModule,
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
@@ -50,10 +53,13 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   providers: [UserService, {
+    provide: AuthServiceConfig
+  },
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  }, errorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

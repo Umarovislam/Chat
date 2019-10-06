@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {ApplicationUser} from '../Entities/ApplicationUser';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +11,11 @@ import {HttpClient} from '@angular/common/http';
 export class UserService {
 
   readonly BaseURI = 'https://localhost:5001';
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  private autwindow: Window;
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<ApplicationUser>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
   formModel = this.fb.group({
     UserName: ['', Validators.required],
     Email: ['', Validators.email],
@@ -18,8 +25,10 @@ export class UserService {
       Password: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmPassword: ['']
     })
-
   });
+  private currentUserSubject: BehaviorSubject<ApplicationUser>;
+  public currentUser: Observable<ApplicationUser>;
+
   comparePasswords(fb: FormGroup) {
     const confirmPswrdCtrl = fb.get('ConfirmPassword');
     // passwordMismatch
@@ -40,12 +49,33 @@ export class UserService {
     return this.http.post(this.BaseURI + '/Account/Register', body);
   }
 
-  login(formData) {
-    return this.http.post(this.BaseURI + '/Account/Login', formData);
+  logout() {
+    this.http.get(this.BaseURI + '/Account/Logout');
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 
+  login(formData) {
+    return this.http.post<any>(this.BaseURI + '/Account/Login', formData).pipe(
+      map(user => {
+        // login successful if there's a jwt token in the response
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+        }
+
+        return user;
+      })
+    );
+  }
+  public get currentUserValue(): ApplicationUser {
+    return this.currentUserSubject.value;
+  }
   getUserProfile() {
     return this.http.get(this.BaseURI + '/UserProfile/GetUserProfile');
   }
+
+  W
 
 }

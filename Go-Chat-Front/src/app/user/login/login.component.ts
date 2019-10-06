@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../shared/user.service';
-import {NgForm} from '@angular/forms';
+import {FormBuilder, NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {tap} from 'rxjs/operators';
+import {first, tap} from 'rxjs/operators';
+import {AuthService, AuthServiceConfig, LoginOpt} from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+
 
 @Component({
   selector: 'app-login',
@@ -11,11 +14,16 @@ import {tap} from 'rxjs/operators';
   styles: []
 })
 export class LoginComponent implements OnInit {
+  constructor(private service: UserService, private router: Router, private toastr: ToastrService, private formBuilder: FormBuilder, private authService: AuthService) {
+  }
+
+
+  submitted = false;
+  returnUrl: string;
   formModel = {
-    Email: '',
-    Password: '',
-  };
-  constructor(private service: UserService, private router: Router, private toastr: ToastrService) { }
+  Email: '',
+  Password: '',
+};
 
   ngOnInit() {
     if (localStorage.getItem('token') != null) {
@@ -23,19 +31,38 @@ export class LoginComponent implements OnInit {
     }
   }
   onSubmit(form: NgForm) {
-    this.service.login(this.formModel).pipe(tap(_ => console.log(_))).subscribe(
-      (res: string) => {
-        localStorage.setItem('token', res);
-        this.router.navigateByUrl('/home');
-      },
-      error => {
-        if (error.status === 400) {
-          this.toastr.error('Incorrect username or password', 'Authentication failed');
-        } else {
-          console.log(error + error.status);
-        }
-      }
-    );
-  }
+    this.submitted = true;
+    this.service.login(this.formModel)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate(['/home']);
+        },
+        error => {
+          if (error.status === 400) {
+            this.toastr.error('Incorrect username or password', 'Authentication failed');
+          } else {
+            console.log(error + error.status);
+          }});
 
+
+        /*      tap(_ => console.log(_))).subscribe(
+              (res: any) => {
+                localStorage.setItem('token', res);
+                this.router.navigateByUrl('/home');
+              },
+              error => {
+                if (error.status === 400) {
+                  this.toastr.error('Incorrect username or password', 'Authentication failed');
+                } else {
+                  console.log(error + error.status);
+                }
+              }*/
+  }
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+signOut(): void {
+    this.authService.signOut();
+  }
 }
