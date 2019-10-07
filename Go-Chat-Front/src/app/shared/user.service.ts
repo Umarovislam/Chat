@@ -72,8 +72,15 @@ export class UserService {
   public get currentUserValue(): ApplicationUser {
     return this.currentUserSubject.value;
   }
+
+  getUserById(id: string): Observable<UserInfo> {
+    return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUserProfile');
+  }
+  updateUser(user: UserInfo): Observable<UserInfo> {
+    return this.http.put<UserInfo>(this.BaseURI, user);
+  }
   getUserProfile() {
-    return this.http.get(this.BaseURI + '/UserProfile/GetUserProfile');
+    return this.http.get('this.BaseURI' + '/UserProfile/GetUserProfile');
   }
 
 }

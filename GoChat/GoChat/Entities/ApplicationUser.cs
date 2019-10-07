@@ -11,4 +11,12 @@ namespace GoChat.Entities
         public string Name { get; set; }
         public string PictureUrl { get; set; }
     }
+    public class UserInfo
+    {
+        public string Name;
+        public string Email ;
+        public string UserName;
+        public string PhoneNumber;
+        public string PrictureUrl;
+    }
 }

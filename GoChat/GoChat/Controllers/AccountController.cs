@@ -126,7 +126,7 @@ namespace GoChat.Controllers
             {
                 Token = tokens,
                 ExpiresIn = token.ValidTo,
-                Username = user.UserName
+                Id = user.Id
             });
         }
         [HttpGet]

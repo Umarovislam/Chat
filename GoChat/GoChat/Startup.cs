@@ -34,7 +34,7 @@ namespace GoChat
             
 
             // ===== Add Identity ========
-            services.AddIdentity<ApplicationUser,IdentityRole>(cfg => { cfg.SignIn.RequireConfirmedEmail = true; })
+            services.AddIdentity<ApplicationUser,IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
