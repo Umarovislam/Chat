@@ -4,8 +4,6 @@ import {FormBuilder, NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {first, tap} from 'rxjs/operators';
-import {AuthService, AuthServiceConfig, LoginOpt} from 'angularx-social-login';
-import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 
 
 @Component({
@@ -14,7 +12,8 @@ import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-logi
   styles: []
 })
 export class LoginComponent implements OnInit {
-  constructor(private service: UserService, private router: Router, private toastr: ToastrService, private formBuilder: FormBuilder, private authService: AuthService) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private service: UserService, private router: Router, private toastr: ToastrService, private formBuilder: FormBuilder) {
   }
 
 
@@ -58,8 +57,5 @@ export class LoginComponent implements OnInit {
                   console.log(error + error.status);
                 }
               }*/
-  }
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 }

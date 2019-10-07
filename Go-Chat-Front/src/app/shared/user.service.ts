@@ -59,7 +59,7 @@ export class UserService {
     return this.http.post<any>(this.BaseURI + '/Account/Login', formData).pipe(
       map(user => {
         // login successful if there's a jwt token in the response
-        if (user && user.token) {
+        if (user && user.Token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
@@ -75,7 +75,5 @@ export class UserService {
   getUserProfile() {
     return this.http.get(this.BaseURI + '/UserProfile/GetUserProfile');
   }
-
-  W
 
 }
