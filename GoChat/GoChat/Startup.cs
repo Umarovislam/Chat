@@ -69,7 +69,7 @@ namespace GoChat
                             .AllowAnyMethod();
                     });
             });
-            services.ConfigureExternalProviders(Configuration);
+           // services.ConfigureExternalProviders(Configuration);
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver =
                     new DefaultContractResolver()); ;

@@ -23,15 +23,16 @@ namespace GoChat.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<object> GetUserProfile()
+        public async Task<object> GetUserProfile(string username)
         {
-            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByEmailAsync(username);
             return new
             {
                 user.Name,
                 user.Email,
-                user.UserName
+                user.UserName,
+                user.PhoneNumber,
+                user.PictureUrl
             };
         }
     }

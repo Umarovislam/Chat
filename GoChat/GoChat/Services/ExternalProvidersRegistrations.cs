@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GoChat.Services
 {
-    public static class ExternalProvidersRegistrations
+    /*public static class ExternalProvidersRegistrations
     {
         public static void ConfigureExternalProviders(this IServiceCollection services, IConfiguration configuration)
         {
@@ -26,5 +26,5 @@ namespace GoChat.Services
             }
 
         }
-    }
+    }*/
 }
