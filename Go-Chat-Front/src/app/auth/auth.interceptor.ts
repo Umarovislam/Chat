@@ -1,4 +1,4 @@
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpResponse} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -16,15 +16,21 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     const currentUser = this.authenticationService.currentUserValue;
-    if (currentUser && currentUser.token) {
+    if (currentUser && currentUser.Token) {
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentUser.token}`
+          Authorization: `Bearer ${currentUser.Token}`
         }
       });
     }
 
-    return next.handle(req);
+    return next.handle(req).pipe(
+      tap(evt => {
+        if (evt instanceof HttpResponse) {
+          console.log(evt.body);
+        }
+      })
+    );
 
     /* if (localStorage.getItem('token') != null) {
       const clonedReq = req.clone({

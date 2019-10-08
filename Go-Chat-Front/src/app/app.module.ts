@@ -17,6 +17,7 @@ import {AuthInterceptor} from './auth/auth.interceptor';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import {errorInterceptorProvider} from './auth/error.interceptor';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -25,9 +26,10 @@ const routes: Routes = [
     path: 'user', component: UserComponent,
     children: [
       {path:   'registration', component: RegistrationComponent},
-      {path:   'login', component: LoginComponent}
+      {path:   'login', component: LoginComponent},
     ]
   },
+  {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]}
 ];
 
@@ -37,7 +39,8 @@ const routes: Routes = [
     UserComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

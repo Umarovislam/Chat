@@ -1,5 +1,5 @@
 export interface ApplicationUser {
-  token: string;
-  expiresIn: Date;
-  id: string;
+  Token: string;
+  ExpiresIn: Date;
+  Id: string;
 }

@@ -31,7 +31,10 @@ namespace GoChat
             
             services.AddDbContext<ApplicationDbContext>();
 
-            
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
 
             // ===== Add Identity ========
             services.AddIdentity<ApplicationUser,IdentityRole>()
@@ -74,10 +77,7 @@ namespace GoChat
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver =
                     new DefaultContractResolver()); ;
             services.AddSignalR(options => options.EnableDetailedErrors = true);
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +86,11 @@ namespace GoChat
            
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
                 app.UseDeveloperExceptionPage();
                 
             }
@@ -99,11 +104,7 @@ namespace GoChat
             app.UseMvc();
             app.UseCors(MyAllowSpecificOrigins);
             dbContext.Database.EnsureCreated();
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
+            
         }
     }
 }

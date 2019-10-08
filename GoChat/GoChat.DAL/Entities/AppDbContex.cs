@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Chat.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoChat.DAL.Entities
 {
-    public class AppDbContex : DbContext
+    public class AppDbContex : IdentityDbContext<AppUser>
     {
-        public DbSet<AppUser> Users { get; set; }
-        public DbSet<Friends> Friends { get; set; }
-        public DbSet<Chat>Chats { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

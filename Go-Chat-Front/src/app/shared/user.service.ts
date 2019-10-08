@@ -74,10 +74,10 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<UserInfo> {
-    return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUserProfile');
+    return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUserProfile?' + 'id=' + id);
   }
   updateUser(user: UserInfo): Observable<UserInfo> {
-    return this.http.put<UserInfo>(this.BaseURI, user);
+    return this.http.put<UserInfo>(this.BaseURI + '/UserProfile/UpdateUser', user);
   }
   getUserProfile() {
     return this.http.get('this.BaseURI' + '/UserProfile/GetUserProfile');

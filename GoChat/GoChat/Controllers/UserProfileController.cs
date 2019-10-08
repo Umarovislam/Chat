@@ -14,7 +14,7 @@ namespace GoChat.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class UserProfileController : ControllerBase
+    public class UserProfileController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
         public UserProfileController(UserManager<ApplicationUser> userManager)
