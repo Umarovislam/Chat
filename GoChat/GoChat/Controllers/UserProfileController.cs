@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using GoChat.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +19,7 @@ namespace GoChat.Controllers
     public class UserProfileController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
+        private IHostingEnvironment _appEnvironment;
         public UserProfileController(UserManager<ApplicationUser> userManager)
         {
             this._userManager = userManager;
@@ -39,13 +42,17 @@ namespace GoChat.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<object> UpdateUser(UserInfo user)
+        public async Task<object> UpdateUser(UserInfo user, IFormFile file)
         {
+            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + $"/Images/{file.FileName}", FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var _user = db.Users.FindAsync(user.Email).Result;
                 _user.Name = user.Name;
-                _user.PictureUrl = user.PrictureUrl;
+                _user.PictureUrl = user.PrictureUrl.FileName;
                 _user.UserName = user.UserName;
                 db.Entry(_user).State = EntityState.Modified;
             }

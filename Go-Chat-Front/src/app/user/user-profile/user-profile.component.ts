@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../shared/user.service';
 import {ApplicationUser} from '../../Entities/ApplicationUser';
 import {tap} from 'rxjs/operators';
-import {DOCUMENT} from '@angular/common';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,9 +14,16 @@ export class UserProfileComponent implements OnInit {
 
   public myprofile = true;
   currentUser: ApplicationUser;
+  EditForm  = {
+    UserName: '',
+    Email: '',
+    Name: '',
+    PhoneNumber: '',
+    PictureUrl: undefined
+  };
   me: UserInfo;
   changed = false;
-  constructor(@Inject(DOCUMENT) document, private router: Router, private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, private forms: FormBuilder) { }
 
   ngOnInit() {
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -24,29 +31,36 @@ export class UserProfileComponent implements OnInit {
         .pipe(tap(_ => console.log(_)))
         .subscribe(
         data => {
-          this.me = data;
+          this.me = data
+          this.EditForm.Name = data.Name;
+          this.EditForm.UserName = data.UserName;
+          this.EditForm.PictureUrl = data.PrictureUrl;
+          this.EditForm.Email = data.Email;
+          this.EditForm.PhoneNumber = data.PhoneNumber;
         }
       );
   }
   onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
+    // tslint:disable-next-line:no-conditional-assignment
+    if (event.target.files && (this.EditForm.PictureUrl = event.target.files[0])) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
       // tslint:disable-next-line:no-shadowed-variable
       reader.onload = (event) => { // called once readAsDataURL is completed
-        this.me.PrictureUrl = event.target.result;
+        this.EditForm.PictureUrl = event.target.result;
       };
     }
   }
 
   public delete() {
-    this.me.PrictureUrl = null;
+    this.EditForm.PictureUrl = null;
   }
   Cancel() {
     this.router.navigate(['/home']);
   }
   SavaChanges() {
-    this.userService.updateUser(this.me).subscribe(
+    console.log(typeof this.EditForm.PictureUrl)
+    this.userService.updateUser(this.EditForm).subscribe(
       data => {
         this.router.navigate(['/home']);
       },

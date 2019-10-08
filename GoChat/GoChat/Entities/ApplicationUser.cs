@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace GoChat.Entities
@@ -17,6 +18,6 @@ namespace GoChat.Entities
         public string Email ;
         public string UserName;
         public string PhoneNumber;
-        public string PrictureUrl;
+        public IFormFile PrictureUrl;
     }
 }

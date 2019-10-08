@@ -76,8 +76,9 @@ export class UserService {
   getUserById(id: string): Observable<UserInfo> {
     return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUserProfile?' + 'id=' + id);
   }
-  updateUser(user: UserInfo): Observable<UserInfo> {
-    return this.http.put<UserInfo>(this.BaseURI + '/UserProfile/UpdateUser', user);
+  updateUser(a: any) {
+
+    return this.http.put(this.BaseURI + '/UserProfile/UpdateUser', a);
   }
   getUserProfile() {
     return this.http.get('this.BaseURI' + '/UserProfile/GetUserProfile');
