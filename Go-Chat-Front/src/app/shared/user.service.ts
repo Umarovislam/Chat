@@ -76,7 +76,8 @@ export class UserService {
   getUserById(id: string): Observable<UserInfo> {
     return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUserProfile?' + 'id=' + id);
   }
-  updateUser(a: any) {
+
+  updateUser(a: FormGroup) {
 
     return this.http.put(this.BaseURI + '/UserProfile/UpdateUser', a);
   }

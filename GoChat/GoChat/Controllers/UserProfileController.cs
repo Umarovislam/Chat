@@ -42,17 +42,17 @@ namespace GoChat.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<object> UpdateUser(UserInfo user, IFormFile file)
+        public async Task<object> UpdateUser(UserInfo user)
         {
-            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + $"/Images/{file.FileName}", FileMode.Create))
+            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + $"/Images/{user.PictureUrl.FileName}", FileMode.Create))
             {
-                await file.CopyToAsync(fileStream);
+                await user.PictureUrl.CopyToAsync(fileStream);
             }
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var _user = db.Users.FindAsync(user.Email).Result;
                 _user.Name = user.Name;
-                _user.PictureUrl = user.PrictureUrl.FileName;
+                _user.PictureUrl = user.PictureUrl.FileName;
                 _user.UserName = user.UserName;
                 db.Entry(_user).State = EntityState.Modified;
             }

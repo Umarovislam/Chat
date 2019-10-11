@@ -1,9 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../shared/user.service';
 import {ApplicationUser} from '../../Entities/ApplicationUser';
 import {tap} from 'rxjs/operators';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -14,16 +15,17 @@ export class UserProfileComponent implements OnInit {
 
   public myprofile = true;
   currentUser: ApplicationUser;
-  EditForm  = {
-    UserName: '',
-    Email: '',
-    Name: '',
-    PhoneNumber: '',
-    PictureUrl: undefined
-  };
+
+  EditForm  = this.fb.group({
+    UserName:  ['', Validators.required],
+    Name: ['', Validators.required],
+    Email: ['', Validators.required],
+    PhoneNumber: ['', Validators.required],
+    PictureUrl: File
+  });
   me: UserInfo;
   changed = false;
-  constructor(private router: Router, private userService: UserService, private forms: FormBuilder) { }
+  constructor(private router: Router, private userService: UserService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -31,35 +33,36 @@ export class UserProfileComponent implements OnInit {
         .pipe(tap(_ => console.log(_)))
         .subscribe(
         data => {
-          this.me = data
-          this.EditForm.Name = data.Name;
-          this.EditForm.UserName = data.UserName;
-          this.EditForm.PictureUrl = data.PrictureUrl;
-          this.EditForm.Email = data.Email;
-          this.EditForm.PhoneNumber = data.PhoneNumber;
+          this.me = data;
+          this.EditForm.setValue(data);
         }
       );
   }
   onSelectFile(event) {
+    const reader = new FileReader();
     // tslint:disable-next-line:no-conditional-assignment
-    if (event.target.files && (this.EditForm.PictureUrl = event.target.files[0])) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
+    if (event.target.files && event.target.files.length) {
+      const [PictureUrl] = event.target.files;
+      reader.readAsDataURL(PictureUrl); // read file as data url
       // tslint:disable-next-line:no-shadowed-variable
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.EditForm.PictureUrl = event.target.result;
+      reader.onload = (event) => {
+        this.me.PictureUrl = event.target.result,
+          this.EditForm.patchValue({
+            PictureUrl: reader.result
+          });
+        this.cd.markForCheck();
       };
     }
   }
 
   public delete() {
-    this.EditForm.PictureUrl = null;
+
   }
   Cancel() {
     this.router.navigate(['/home']);
   }
   SavaChanges() {
-    console.log(typeof this.EditForm.PictureUrl)
+    console.log(typeof this.EditForm);
     this.userService.updateUser(this.EditForm).subscribe(
       data => {
         this.router.navigate(['/home']);
