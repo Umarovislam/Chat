@@ -41,7 +41,7 @@ namespace GoChat.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        [Authorize (AuthenticationSchemes = "Bearer")]
         public async Task<object> UpdateUser(UserInfo user)
         {
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + $"/Images/{user.PictureUrl.FileName}", FileMode.Create))

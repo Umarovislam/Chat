@@ -3,5 +3,5 @@ class UserInfo {
   Email: string;
   UserName: string;
   PhoneNumber: string;
-  PictureUrl: File;
+  PictureUrl: string | ArrayBuffer;
 }

@@ -1,14 +1,19 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using GoChat.Entities;
+using GoChat.Hubs;
 using GoChat.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
@@ -22,7 +27,6 @@ namespace GoChat
         {
             Configuration = configuration;
         }
-        readonly string MyAllowSpecificOrigins = "Access-Control-Allow-Origin";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -64,10 +68,11 @@ namespace GoChat
                 });
             services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins,
+                options.AddPolicy("CorsPolicy",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200")
+                        builder
+                            .WithOrigins("http://localhost:4200")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -102,7 +107,14 @@ namespace GoChat
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chat");
+            });
+            app.UseCors("CorsPolicy");
             dbContext.Database.EnsureCreated();
             
         }

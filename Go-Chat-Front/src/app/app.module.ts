@@ -18,6 +18,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import {errorInterceptorProvider} from './auth/error.interceptor';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { ChatRoomComponent } from './home/chat-room/chat-room.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,8 @@ const routes: Routes = [
     RegistrationComponent,
     LoginComponent,
     HomeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChatRoomComponent
   ],
   imports: [
     BrowserModule,
