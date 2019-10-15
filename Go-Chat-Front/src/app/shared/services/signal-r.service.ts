@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
 
 
-@Injectable({
-  providedIn: 'root'
-})
-const connection = new signalR.HubConnectionBuilder();
+// let connection: HubConnectionBuilder;
+// csonnection = new signalR.HubConnectionBuilder();
 export class SignalRService {
   constructor() { }
 }

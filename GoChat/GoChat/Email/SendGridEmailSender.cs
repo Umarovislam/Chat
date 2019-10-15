@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using GoChat.Services;
+﻿using System.Threading.Tasks;
 using MimeKit;
 using MailKit.Net.Smtp;
-using System.Threading.Tasks;
 
 namespace GoChat.Email
 {

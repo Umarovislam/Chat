@@ -15,6 +15,11 @@ namespace GoChat.Hubs
     [Authorize (AuthenticationSchemes = "Bearer")]
     public class ChatHub : Hub
     {
+        /*#region MyRegion
+
+        
+
+       
         #region Properties
         /// <summary>
         /// List of online users
@@ -316,5 +321,6 @@ namespace GoChat.Hubs
 
             return "Web";
         }
+        #endregion*/
     }
 }
