@@ -15,6 +15,15 @@ namespace GoChat.Hubs
     [Authorize (AuthenticationSchemes = "Bearer")]
     public class ChatHub : Hub
     {
+
+        public readonly static List<UserViewModel> _Connections = new List<UserViewModel>();
+
+
+        private readonly static List<RoomViewModel> _Rooms = new List<RoomViewModel>();
+
+        private readonly static Dictionary<string, string> _ConnectionsMap = new Dictionary<string, string>();
+
+
         /*#region MyRegion
 
         
