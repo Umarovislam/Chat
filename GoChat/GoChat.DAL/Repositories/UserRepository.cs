@@ -22,7 +22,7 @@ namespace GoChat.DAL.Repositories
             return this.db.Users.ToList<AppUser>();
         }
 
-        public AppUser getById(int id)
+        public AppUser getById(string id)
         {
             return db.Users.Find(id);
         }
@@ -42,7 +42,7 @@ namespace GoChat.DAL.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var x = db.Users.Find(id);
             if (x != null)

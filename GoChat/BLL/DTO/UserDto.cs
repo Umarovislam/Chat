@@ -8,6 +8,10 @@ namespace BLL.DTO
     public class UserDto : IdentityUser
     {
         public string Name { get; set; }
-        public string PictureUrl { get; set; }
+        public string Avatar { get; set; }
+
+        public virtual ICollection<RoomDto> Rooms { get; set; }
+
+        public virtual ICollection<MessageDto> Messages { get; set; }
     }
 }

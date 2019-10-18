@@ -22,7 +22,7 @@ namespace GoChat.DAL.Repositories
             return this.db.Rooms;
         }
 
-        public Room getById(int id)
+        public Room getById(string id)
         {
             return this.db.Rooms.Find(id);
         }
@@ -42,7 +42,7 @@ namespace GoChat.DAL.Repositories
             this.db.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var x = this.db.Rooms.Find(id);
             if (x != null)

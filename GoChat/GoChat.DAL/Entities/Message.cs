@@ -12,8 +12,6 @@ namespace GoChat.DAL.Entities
         public string Content { get; set; }
         public string Timestamp { get; set; }
         public virtual AppUser FromUser { get; set; }
-
-        [Required]
         public virtual Room ToRoom { get; set; }
     }
 }

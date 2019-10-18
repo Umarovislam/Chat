@@ -20,7 +20,7 @@ namespace GoChat.DAL.Repositories
             return db.Messages.ToList<Message>();
         }
 
-        public Message getById(int id)
+        public Message getById(string id)
         {
             return this.db.Messages.Find(id);
         }
@@ -40,7 +40,7 @@ namespace GoChat.DAL.Repositories
             this.db.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var x = db.Messages.Find(id);
             if (x != null)

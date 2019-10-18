@@ -7,10 +7,10 @@ namespace GoChat.DAL.Interfaces
     public interface IRepository<T> where T: class
     {
         IEnumerable<T> getAll();
-        T getById(int id);
+        T getById(string id);
         IEnumerable<T> Find(Func<T, Boolean> predicate);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(string id);
     }
 }
