@@ -13,6 +13,7 @@ namespace GoChat.DAL.Repositories
         private AppDbContex db;
         private MessageRepository messageRepository;
         private UserRepository userRepository;
+        private RoomRepository roomRepository;
         public EFUnitOfWork()
         {
             this.db = new AppDbContex();
@@ -42,11 +43,35 @@ namespace GoChat.DAL.Repositories
             }
         }
 
-        public IRepository<Room> Rooms { get; set; }
-        public IRepository<AppUser> Users { get; set; }
+        public IRepository<Room> Rooms
+        {
+            get
+            {
+                if (roomRepository == null)
+                {
+                    roomRepository = new RoomRepository(db);
+                }
+
+                return roomRepository;
+            }
+        }
+
+        public IRepository<AppUser> Users
+        {
+            get
+            {
+                if (userRepository == null)
+                {
+                    userRepository = new UserRepository(db);
+                }
+
+                return userRepository;
+            }
+        }
+
         public void Save()
         {
-            throw new NotImplementedException();
+            this.db.SaveChanges();
         }
 
         public void Dispose()

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.IO;
 using System.Threading.Tasks;
 using GoChat.Entities;
+using System.Web.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +40,7 @@ namespace GoChat.Controllers
         [Authorize (AuthenticationSchemes = "Bearer")]
         public async Task<object> UpdateUser(UserInfo user)
         {
+
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + $"/Images/{user.PictureUrl.FileName}", FileMode.Create))
             {
                 await user.PictureUrl.CopyToAsync(fileStream);

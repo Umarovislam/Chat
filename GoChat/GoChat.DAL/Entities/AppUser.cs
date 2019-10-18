@@ -10,7 +10,7 @@ namespace GoChat.DAL.Entities
 {
     public class AppUser : IdentityUser
     {
-        public string DisplayName { get; set; }
+        public string Name { get; set; }
 
         public string Avatar { get; set; }
 

@@ -31,7 +31,12 @@ const routes: Routes = [
     ]
   },
   {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthGuard]},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]}
+  {
+    path: 'home', component: HomeComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'room', component: ChatRoomComponent, canActivate: [AuthGuard]}
+    ]
+  }
 ];
 
 @NgModule({
