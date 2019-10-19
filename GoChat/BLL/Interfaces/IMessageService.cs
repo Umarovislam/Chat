@@ -5,7 +5,7 @@ using BLL.DTO;
 
 namespace BLL.Interfaces
 {
-    interface IMessageService
+    public interface IMessageService
     {
         void newMessage(MessageDto str);
         List<MessageDto> getMessages(string id);

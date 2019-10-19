@@ -28,7 +28,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private router: Router, private userService: UserService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.currentUser = JSON.parse( localStorage.getItem('currentUser'));
       this.userService.getUserById(this.currentUser.Id)
         .pipe(tap(_ => console.log(_)))
         .subscribe(

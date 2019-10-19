@@ -13,6 +13,7 @@ namespace GoChat.Entities
         {
             optionsBuilder.UseMySql(GetConnectionString());
         }
+
         private static string GetConnectionString()
         {
             const string databaseName = "identitydb";

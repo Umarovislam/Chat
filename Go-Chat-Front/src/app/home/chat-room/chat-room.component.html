@@ -1,0 +1,7 @@
+<div>
+  <form (ngSubmit)="startHttpRequest()">
+    <input class="form-control" name="str" [(ngModel)]="froms.str" required>
+    <button type="submit">SUBMIT</button>
+  </form>
+  <h3 *ngIf="data != null">{{data}}</h3>
+</div>

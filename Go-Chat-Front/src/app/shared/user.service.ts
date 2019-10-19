@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ApplicationUser} from '../Entities/ApplicationUser';
+import {type} from 'os';
 
 @Injectable({
   providedIn: 'root'

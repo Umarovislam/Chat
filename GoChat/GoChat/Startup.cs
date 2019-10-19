@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
+using System.Security.AccessControl;
+using BLL.Interfaces;
+using BLL.Services;
 using GoChat.Entities;
 using GoChat.Hubs;
 using GoChat.Services;
@@ -44,6 +47,10 @@ namespace GoChat
             services.AddIdentity<ApplicationUser,IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IRoomService, RoomService>();
+            services.AddTransient<IUserService, UserService>();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
             services
                 .AddAuthentication(options =>
@@ -68,14 +75,17 @@ namespace GoChat
                 });
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
+                options.AddPolicy("Access-Control-Allow-Origin",
                     builder =>
                     {
                         builder
-                            .WithOrigins("http://localhost:4200")
                             .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    });
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin()
+                            .Build();
+                    }
+                );
+                
             });
            // services.ConfigureExternalProviders(Configuration);
             services.AddMvc()
@@ -91,11 +101,12 @@ namespace GoChat
            
             if (env.IsDevelopment())
             {
-                app.UseSwagger();
+                
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 });
+                app.UseSwagger();
                 app.UseDeveloperExceptionPage();
                 
             }
@@ -114,7 +125,7 @@ namespace GoChat
             {
                 routes.MapHub<ChatHub>("/chat");
             });
-            app.UseCors("CorsPolicy");
+            app.UseCors("Access-Control-Allow-Origin");
             dbContext.Database.EnsureCreated();
             
         }

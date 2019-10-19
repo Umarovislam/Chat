@@ -5,7 +5,7 @@ using BLL.DTO;
 
 namespace BLL.Interfaces
 {
-    interface IUserService
+    public interface IUserService
     {
         void CreateUser(UserDto user);
         UserDto GetUserProfile(string id);

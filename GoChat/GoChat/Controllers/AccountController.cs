@@ -95,11 +95,11 @@ namespace GoChat.Controllers
             else
                 return null;
         }
-        public IActionResult SignInWithGoogle()
+        /*public IActionResult SignInWithGoogle()
         {
             var authenticationProperties = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action(nameof(HandleExternalLogin)));
             return Challenge(authenticationProperties, "Google");
-        }
+        }*/
 
         private async Task<object> GenerateJwtToken(string email, ApplicationUser  user)
         {

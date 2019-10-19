@@ -10,7 +10,7 @@ using GoChat.DAL.Interfaces;
 
 namespace BLL.Services
 {
-    public class RoomService : IRoomServices
+    public class RoomService : IRoomService
     {
         private IUnitOfWork db { get; set; }
 
