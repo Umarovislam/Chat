@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace GoChat.Hubs
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+   // [Authorize(AuthenticationSchemes = "Bearer")]
     public class ChatHub : Hub
     {
         private IRoomService roomService;

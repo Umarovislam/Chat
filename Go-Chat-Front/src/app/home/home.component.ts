@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../shared/user.service';
 import {tap} from 'rxjs/operators';
+import {UserProfileComponent} from '../user/user-profile/user-profile.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,16 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router, private service: UserService) {
   }
+  foms = {
+    str: ''
+  }
 
+  getUserProfile() {
+    if (this.foms.str != null) {
+    this.service.UserName = this.foms.str;
+    this.router.navigate(['user/profile']);
+    }
+  }
   ngOnInit() {
   }
 

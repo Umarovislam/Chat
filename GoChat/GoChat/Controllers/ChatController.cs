@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace GoChat.Controllers
 {
+    [Route("[controller]/[action]")]
+    [ApiController]
     public class ChatController : Controller
     {
         private readonly IHubContext<ChatHub> _hubContext;
@@ -17,12 +19,21 @@ namespace GoChat.Controllers
             _hubContext = hub;
         }
 
-
-        public IActionResult Get()
+        public string Post([FromBody] object[] msg)
         {
+            string retMessage = string.Empty;
 
-            return Ok(new { Message = "Request Completed" });
+            try
+            {
+                _hubContext.Clients.All.SendCoreAsync("Receive",msg);
+                retMessage = "Success";
+            }
+            catch (Exception e)
+            {
+                retMessage = e.ToString();
+            }
+
+            return retMessage;
         }
-
     }
 }

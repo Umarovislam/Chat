@@ -12,10 +12,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  constructor(private router: Router, private userService: UserService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
-  public myprofile = true;
+  public  myprofile = true;
   currentUser: ApplicationUser;
-
   EditForm  = this.fb.group({
     UserName:  ['', Validators.required],
     Name: ['', Validators.required],
@@ -25,16 +25,27 @@ export class UserProfileComponent implements OnInit {
   });
   me: UserInfo;
   changed = false;
-  constructor(private router: Router, private userService: UserService, private fb: FormBuilder, private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
       this.currentUser = JSON.parse( localStorage.getItem('currentUser'));
-      this.userService.getUserById(this.currentUser.Id)
-        .pipe(tap(_ => console.log(_)))
-        .subscribe(
+      this.getMyProfile();
+  }
+  public getMyProfile() {
+    this.userService.getUserById(this.currentUser.Id)
+      .pipe(tap(_ => console.log(_)))
+      .subscribe(
         data => {
           this.me = data;
           this.EditForm.setValue(data);
+        }
+      );
+  }
+  public getUserProfile() {
+    this.userService.getUserByUserName()
+      .pipe(tap(_ => console.log(_)))
+      .subscribe(
+        data => {
+          this.me = data;
         }
       );
   }

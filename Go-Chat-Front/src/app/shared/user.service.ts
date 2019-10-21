@@ -13,6 +13,7 @@ export class UserService {
 
   readonly BaseURI = 'https://localhost:5001';
   private autwindow: Window;
+  public UserName: string
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<ApplicationUser>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -76,6 +77,9 @@ export class UserService {
 
   getUserById(id: string): Observable<UserInfo> {
     return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUserProfile?' + 'id=' + id);
+  }
+  getUserByUserName(): Observable<UserInfo> {
+    return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUser?' + 'UserName=' + this.UserName);
   }
 
   updateUser(a: FormGroup) {

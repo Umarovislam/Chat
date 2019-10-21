@@ -36,6 +36,26 @@ namespace GoChat.Controllers
             };
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<object> GetUser(string UserName)
+        {
+            var user = await _userManager.FindByNameAsync(UserName);
+            if(user != null)
+            {
+                return new
+                {
+                    user.Name,
+                    user.Email,
+                    user.UserName,
+                    user.PhoneNumber,
+                    user.PictureUrl
+                };
+            }
+
+            return user;
+        }
+
         [HttpPut]
         [Authorize (AuthenticationSchemes = "Bearer")]
         public async Task<object> UpdateUser(UserInfo user)

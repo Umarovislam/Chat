@@ -82,6 +82,7 @@ namespace GoChat
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowAnyOrigin()
+                            .WithOrigins("http://localhost:4200")
                             .Build();
                     }
                 );

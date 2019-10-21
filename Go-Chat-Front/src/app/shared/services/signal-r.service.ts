@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr';
+import {HubConnection} from '@aspnet/signalr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
-  private hubConnection: signalR.HubConnection;
+  public hubConnection: signalR.HubConnection;
   private data: string;
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .configureLogging(signalR.LogLevel.Debug)
       .withUrl('https://localhost:5001/chat',
         {
         skipNegotiation: true,
         //  accessTokenFactory: () => `Bearer ${JSON.parse(localStorage.getItem('currentUser')).Token}`,
         transport: signalR.HttpTransportType.WebSockets
-      }).build();
+      }
+      ).build();
     this.hubConnection
       .start()
       .then(() => console.log('Connection started'))
