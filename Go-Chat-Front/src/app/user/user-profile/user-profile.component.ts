@@ -4,6 +4,7 @@ import {UserService} from '../../shared/user.service';
 import {ApplicationUser} from '../../Entities/ApplicationUser';
 import {tap} from 'rxjs/operators';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {any} from 'codelyzer/util/function';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class UserProfileComponent implements OnInit {
     Name: ['', Validators.required],
     Email: ['', Validators.required],
     PhoneNumber: ['', Validators.required],
-    PictureUrl: File
+    PictureUrl: any
   });
   me: UserInfo;
   changed = false;

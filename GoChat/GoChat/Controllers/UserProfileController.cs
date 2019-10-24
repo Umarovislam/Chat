@@ -61,6 +61,7 @@ namespace GoChat.Controllers
         public async Task<object> UpdateUser(UserInfo user)
         {
 
+            user.PictureUrl = Request.Form.Files[0];
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + $"/Images/{user.PictureUrl.FileName}", FileMode.Create))
             {
                 await user.PictureUrl.CopyToAsync(fileStream);

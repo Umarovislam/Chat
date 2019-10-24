@@ -121,7 +121,6 @@ namespace GoChat
             app.UseMvc();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chat");

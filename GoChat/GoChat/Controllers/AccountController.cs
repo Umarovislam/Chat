@@ -50,7 +50,7 @@ namespace GoChat.Controllers
         }
         [HttpPost]
         public async Task<object> Register( RegisterDto model)
-        {
+         {
             var user = new ApplicationUser()
             {
                 UserName = model.UserName,

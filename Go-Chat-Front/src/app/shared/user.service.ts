@@ -82,7 +82,7 @@ export class UserService {
     return this.http.get<UserInfo>(this.BaseURI + '/UserProfile/GetUser?' + 'UserName=' + this.UserName);
   }
 
-  updateUser(a: FormGroup) {
+  updateUser(a: any) {
 
     return this.http.put(this.BaseURI + '/UserProfile/UpdateUser', a);
   }
