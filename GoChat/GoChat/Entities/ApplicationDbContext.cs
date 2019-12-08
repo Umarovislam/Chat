@@ -16,9 +16,9 @@ namespace GoChat.Entities
 
         private static string GetConnectionString()
         {
-            const string databaseName = "identitydb";
+            const string databaseName = "gochatdb";
             const string databaseUser = "root";
-            const string databasePass = "UmarovIslam0898";
+            const string databasePass = "0898";
 
             return $"Server=localhost;" +
                    $"database={databaseName};" +

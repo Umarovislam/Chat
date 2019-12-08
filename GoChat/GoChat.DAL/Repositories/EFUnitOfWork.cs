@@ -10,13 +10,13 @@ namespace GoChat.DAL.Repositories
     public class EFUnitOfWork : IUnitOfWork
     {
         private bool disposed = false;
-        private AppDbContex db;
+        private AppDbContext db;
         private MessageRepository messageRepository;
         private UserRepository userRepository;
         private RoomRepository roomRepository;
         public EFUnitOfWork()
         {
-            this.db = new AppDbContex();
+            this.db = new AppDbContext();
         }
 
         public void Dispose(bool disposing)

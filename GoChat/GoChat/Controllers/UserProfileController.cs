@@ -32,7 +32,7 @@ namespace GoChat.Controllers
                 user.Email,
                 user.UserName,
                 user.PhoneNumber,
-                user.PictureUrl
+                user.Avatar
             };
         }
 
@@ -49,7 +49,7 @@ namespace GoChat.Controllers
                     user.Email,
                     user.UserName,
                     user.PhoneNumber,
-                    user.PictureUrl
+                    user.Avatar
                 };
             }
 
@@ -70,7 +70,7 @@ namespace GoChat.Controllers
             {
                 var _user = db.Users.FindAsync(user.Email).Result;
                 _user.Name = user.Name;
-                _user.PictureUrl = user.PictureUrl.FileName;
+                _user.Avatar = user.PictureUrl.FileName;
                 _user.UserName = user.UserName;
                 db.Entry(_user).State = EntityState.Modified;
             }

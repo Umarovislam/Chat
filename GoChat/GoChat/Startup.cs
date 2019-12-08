@@ -82,7 +82,7 @@ namespace GoChat
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowAnyOrigin()
-                            .WithOrigins("http://localhost:4200")
+                            .WithOrigins("https://localhost:4200")
                             .Build();
                     }
                 );
@@ -126,8 +126,7 @@ namespace GoChat
                 routes.MapHub<ChatHub>("/chat");
             });
             app.UseCors("Access-Control-Allow-Origin");
-            dbContext.Database.EnsureCreated();
-            
+          
         }
     }
 }

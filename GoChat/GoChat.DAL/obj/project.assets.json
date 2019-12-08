@@ -8785,23 +8785,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Individual\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\P\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
       "projectName": "GoChat.DAL",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\Individual\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\Individual\\Chat\\GoChat\\GoChat.DAL\\obj\\",
+      "projectPath": "C:\\Users\\User\\Desktop\\P\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\P\\Chat\\GoChat\\GoChat.DAL\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -10,7 +10,7 @@ namespace GoChat.Entities
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
-        public string PictureUrl { get; set; }
+        public string Avatar { get; set; }
     }
     public class UserInfo
     {

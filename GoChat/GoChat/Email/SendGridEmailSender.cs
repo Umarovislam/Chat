@@ -10,7 +10,7 @@ namespace GoChat.Email
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Administration", "Ihtyyarovich@mail.ru"));
+            emailMessage.From.Add(new MailboxAddress("Administration", "adigitalagetmp@gmail.com"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -20,8 +20,8 @@ namespace GoChat.Email
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.mail.ru", 25, false);
-                await client.AuthenticateAsync("Ihtyyarovich@mail.ru", "Backends0898");
+                await client.ConnectAsync("smtp.gmail.com", 587, false);
+                await client.AuthenticateAsync("adigitalagetmp@gmail.com", "Sevchanskyy");
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);

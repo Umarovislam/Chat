@@ -10,8 +10,8 @@ namespace GoChat.DAL.Repositories
 {
     public class MessageRepository : IRepository<Message>
     {
-        private AppDbContex db;
-        public MessageRepository(AppDbContex contex)
+        private AppDbContext db;
+        public MessageRepository(AppDbContext contex)
         {
             this.db = contex;
         }

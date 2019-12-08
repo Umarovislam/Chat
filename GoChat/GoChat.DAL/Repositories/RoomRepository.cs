@@ -11,9 +11,9 @@ namespace GoChat.DAL.Repositories
 {
     public class RoomRepository : IRepository<Room>
     {
-        private AppDbContex db;
+        private AppDbContext db;
 
-        public RoomRepository(AppDbContex contex)
+        public RoomRepository(AppDbContext contex)
         {
             this.db = contex;
         }

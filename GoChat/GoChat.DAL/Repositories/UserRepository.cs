@@ -10,9 +10,9 @@ namespace GoChat.DAL.Repositories
 {
     public class UserRepository : IRepository<AppUser>
     {
-        private AppDbContex db;
+        private AppDbContext db;
 
-        public UserRepository(AppDbContex contex)
+        public UserRepository(AppDbContext contex)
         {
             this.db = contex; 
         }

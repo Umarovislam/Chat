@@ -29,7 +29,7 @@ namespace GoChat.Hubs
         }
         public async Task Send(string message)
         {
-            Clients.All.SendCoreAsync("Receive", message.Split());
+            await Clients.All.SendCoreAsync("Receive", message.Split());
             SendToRoom(null,new MessageViewModel()
                 {
                     Content = message

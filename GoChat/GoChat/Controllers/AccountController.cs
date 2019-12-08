@@ -43,7 +43,7 @@ namespace GoChat.Controllers
             var user = await _userManager.FindByNameAsync(model.Email);
             if (result.Succeeded && await _userManager.CheckPasswordAsync(user, model.Password))
             { 
-                return await GenerateJwtToken(model.Email, user);
+                return  GenerateJwtToken(model.Email, user);
             }
 
             return BadRequest(new {message = "UserName or password incorrect"});
@@ -91,7 +91,7 @@ namespace GoChat.Controllers
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             if (result.Succeeded)
-                return await GenerateJwtToken(userId, user);
+                return GenerateJwtToken(userId, user);
             else
                 return null;
         }
@@ -100,8 +100,8 @@ namespace GoChat.Controllers
             var authenticationProperties = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action(nameof(HandleExternalLogin)));
             return Challenge(authenticationProperties, "Google");
         }*/
-
-        private async Task<object> GenerateJwtToken(string email, ApplicationUser  user)
+        [ApiExplorerSettings(IgnoreApi = true)]
+        private object GenerateJwtToken(string email, ApplicationUser  user)
         {
             var claims = new List<Claim>
             {
@@ -135,7 +135,7 @@ namespace GoChat.Controllers
             await _signInManager.SignOutAsync();
             return Redirect("http://localhost:4200/user/login");
         }
-
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> HandleExternalLogin()
         {
             var info = await _signInManager.GetExternalLoginInfoAsync();
@@ -164,6 +164,7 @@ namespace GoChat.Controllers
 
             return Redirect("http://localhost:4200");
         }
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> ExternalLoginConfirmation(ApplicationUser model)
         {
             var info = await _signInManager.GetExternalLoginInfoAsync();
