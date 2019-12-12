@@ -4,6 +4,8 @@ using System.IO;
 using System.Security.AccessControl;
 using BLL.Interfaces;
 using BLL.Services;
+using GoChat.DAL.Interfaces;
+using GoChat.DAL.Repositories;
 using GoChat.Entities;
 using GoChat.Hubs;
 using GoChat.Services;
@@ -35,7 +37,21 @@ namespace GoChat
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin()
+                            .WithOrigins("http://localhost:4200")
+                            .Build();
+                    }
+                );
+
+            });
             services.AddDbContext<ApplicationDbContext>();
 
             services.AddSwaggerGen(c =>
@@ -51,6 +67,7 @@ namespace GoChat
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IRoomService, RoomService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddScoped<IUnitOfWork, EFUnitOfWork>();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
             services
                 .AddAuthentication(options =>
@@ -73,21 +90,7 @@ namespace GoChat
                         ClockSkew = TimeSpan.Zero // remove delay of token when expire
                     };
                 });
-            services.AddCors(options =>
-            {
-                options.AddPolicy("Access-Control-Allow-Origin",
-                    builder =>
-                    {
-                        builder
-                            .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .AllowAnyOrigin()
-                            .WithOrigins("https://localhost:4200")
-                            .Build();
-                    }
-                );
-                
-            });
+          
            // services.ConfigureExternalProviders(Configuration);
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver =
@@ -125,7 +128,7 @@ namespace GoChat
             {
                 routes.MapHub<ChatHub>("/chat");
             });
-            app.UseCors("Access-Control-Allow-Origin");
+            app.UseCors("AllowMyOrigin");
           
         }
     }

@@ -3111,6 +3111,19 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "Ninject/3.3.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Reflection.Emit.ILGeneration": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Ninject.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Ninject.dll": {}
+        }
+      },
       "NuGet.Frameworks/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -4736,7 +4749,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.0/_._": {}
+          "ref/netstandard1.0/System.Reflection.Emit.Lightweight.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Reflection.Emit.Lightweight.dll": {}
@@ -5620,7 +5633,8 @@
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
-          "GoChat.DAL": "1.0.0"
+          "GoChat.DAL": "1.0.0",
+          "Ninject": "3.3.4"
         },
         "compile": {
           "bin/placeholder/BLL.dll": {}
@@ -9353,6 +9367,21 @@
         "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.1.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
+      ]
+    },
+    "Ninject/3.3.4": {
+      "sha512": "CmbWW97FfJuh4LEOVZM/spqXl4KAulRUjqeMwRd5J9rDMQArmIYaDMU3pyzXXHT062tbF0OPIMwI7tSOtprPfg==",
+      "type": "package",
+      "path": "ninject/3.3.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Ninject.dll",
+        "lib/net45/Ninject.xml",
+        "lib/netstandard2.0/Ninject.dll",
+        "lib/netstandard2.0/Ninject.xml",
+        "ninject.3.3.4.nupkg.sha512",
+        "ninject.nuspec"
       ]
     },
     "NuGet.Frameworks/4.7.0": {
@@ -15356,6 +15385,7 @@
     ".NETCoreApp,Version=v2.2": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
       "BLL >= 1.0.0",
+      "GoChat.DAL >= 1.0.0",
       "MailKit >= 1.10.0",
       "Microsoft.AspNetCore.App >= 2.2.0",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
@@ -15400,6 +15430,9 @@
           "projectReferences": {
             "C:\\Users\\User\\Desktop\\P\\Chat\\GoChat\\BLL\\BLL.csproj": {
               "projectPath": "C:\\Users\\User\\Desktop\\P\\Chat\\GoChat\\BLL\\BLL.csproj"
+            },
+            "C:\\Users\\User\\Desktop\\P\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\P\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj"
             }
           }
         }

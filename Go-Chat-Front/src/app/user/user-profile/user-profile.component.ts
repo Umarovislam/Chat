@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
     Name: ['', Validators.required],
     Email: ['', Validators.required],
     PhoneNumber: ['', Validators.required],
-    PictureUrl: any
+    Avatar: any
   });
   me: UserInfo;
   changed = false;
@@ -58,7 +58,7 @@ export class UserProfileComponent implements OnInit {
       reader.readAsDataURL(PictureUrl); // read file as data url
       // tslint:disable-next-line:no-shadowed-variable
       reader.onload = (event) => {
-        this.me.PictureUrl = reader.result,
+        this.me.Avatar = reader.result,
           this.EditForm.patchValue({
             PictureUrl: reader.result
           });

@@ -3,5 +3,5 @@ class UserInfo {
   Email: string;
   UserName: string;
   PhoneNumber: string;
-  PictureUrl: any;
+  Avatar: any;
 }
