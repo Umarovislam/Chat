@@ -54,13 +54,13 @@ export class UserProfileComponent implements OnInit {
     const reader = new FileReader();
     // tslint:disable-next-line:no-conditional-assignment
     if (event.target.files && event.target.files.length) {
-      const [PictureUrl] = event.target.files;
-      reader.readAsDataURL(PictureUrl); // read file as data url
+      const [Avatar] = event.target.files;
+      reader.readAsDataURL(Avatar); // read file as data url
       // tslint:disable-next-line:no-shadowed-variable
       reader.onload = (event) => {
         this.me.Avatar = reader.result,
           this.EditForm.patchValue({
-            PictureUrl: reader.result
+            Avatar: reader.result
           });
         this.cd.markForCheck();
       };
