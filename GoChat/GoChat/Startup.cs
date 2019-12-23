@@ -39,7 +39,7 @@ namespace GoChat
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowMyOrigin",
+                options.AddPolicy("AllowAllOriginsPolicy",
                     builder =>
                     {
                         builder
@@ -128,7 +128,7 @@ namespace GoChat
             {
                 routes.MapHub<ChatHub>("/chat");
             });
-            app.UseCors("AllowMyOrigin");
+            app.UseCors("AllowAllOriginsPolicy");
           
         }
     }
