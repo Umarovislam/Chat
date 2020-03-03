@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace GoChat.Controllers
 {
@@ -26,14 +27,18 @@ namespace GoChat.Controllers
         public async Task<object> GetUserProfile(string Id)
         {
             var user = await _userManager.FindByIdAsync(Id);
-            return new
-            {
-                user.Name,
-                user.Email,
-                user.UserName,
-                user.PhoneNumber,
-                user.Avatar
-            };
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser,UserInfo>())..CreateMapper();
+            var userInfo = mapper.Map<ApplicationUser, UserInfo>(user);
+                                                                
+            return 
+            //    new
+            //{
+            //    user.Name,
+            //    user.Email,
+            //    user.UserName,
+            //    user.PhoneNumber,
+            //    user.Avatar
+            //};
         }
 
         [HttpGet]
