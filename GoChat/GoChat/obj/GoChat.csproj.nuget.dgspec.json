@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat\\GoChat.csproj": {}
+    "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat\\GoChat.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\Chat\\GoChat\\BLL\\BLL.csproj": {
+    "C:\\Users\\User\\Documents\\GoChat\\GoChat\\BLL\\BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\Chat\\GoChat\\BLL\\BLL.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\BLL\\BLL.csproj",
         "projectName": "BLL",
-        "projectPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\BLL\\BLL.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\BLL\\BLL.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\BLL\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\BLL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -27,8 +27,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj"
+              "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
+                "projectPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj"
               }
             }
           }
@@ -67,18 +67,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
+    "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
         "projectName": "GoChat.DAL",
-        "projectPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -158,18 +158,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat\\GoChat.csproj": {
+    "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat\\GoChat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat\\GoChat.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat\\GoChat.csproj",
         "projectName": "GoChat",
-        "projectPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat\\GoChat.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat\\GoChat.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -185,11 +185,11 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\Chat\\GoChat\\BLL\\BLL.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\BLL\\BLL.csproj"
+              "C:\\Users\\User\\Documents\\GoChat\\GoChat\\BLL\\BLL.csproj": {
+                "projectPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\BLL\\BLL.csproj"
               },
-              "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\Chat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj"
+              "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj": {
+                "projectPath": "C:\\Users\\User\\Documents\\GoChat\\GoChat\\GoChat.DAL\\GoChat.DAL.csproj"
               }
             }
           }
@@ -279,7 +279,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
