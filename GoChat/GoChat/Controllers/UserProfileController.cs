@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using GoChat.Entities;
-using System.Web.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +14,6 @@ namespace GoChat.Controllers
     public class UserProfileController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
-        private IHostingEnvironment _appEnvironment;
         public UserProfileController(UserManager<ApplicationUser> userManager)
         {
             this._userManager = userManager;
@@ -62,7 +60,7 @@ namespace GoChat.Controllers
         {
 
             user.PictureUrl = Request.Form.Files[0];
-            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + $"/Images/{user.PictureUrl.FileName}", FileMode.Create))
+            using (var fileStream = new FileStream($"/Images/{user.PictureUrl.FileName}", FileMode.Create))
             {
                 await user.PictureUrl.CopyToAsync(fileStream);
             }

@@ -18,22 +18,21 @@ namespace GoChat.Controllers
         {
             _hubContext = hub;
         }
-
-        public string Post([FromBody] object[] msg)
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody] object[] msg)
         {
             string retMessage = string.Empty;
 
             try
             {
-                _hubContext.Clients.All.SendCoreAsync("Receive",msg);
-                retMessage = "Success";
+                await _hubContext.Clients.All.SendCoreAsync("Receive",msg);
             }
             catch (Exception e)
             {
-                retMessage = e.ToString();
+                return BadRequest(e.Message);
             }
 
-            return retMessage;
+            return Ok();
         }
     }
 }
