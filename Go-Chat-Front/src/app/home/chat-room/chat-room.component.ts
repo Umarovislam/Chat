@@ -13,11 +13,12 @@ export class ChatRoomComponent implements OnInit {
   public froms = {
     str: ''
   };
+  public data: any;
   messages: any[];
-  public data: string;
   ngOnInit() {
     this.signalRService.startConnection();
-    this.signalRService.addTransferChartDataListener();
+    this.data = this.signalRService.addTransferChartDataListener();
+
     // tslint:disable-next-line:no-unused-expression
   }
   private startHttpRequest = () => {

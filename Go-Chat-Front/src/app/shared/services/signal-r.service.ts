@@ -26,6 +26,7 @@ export class SignalRService {
     this.hubConnection.on('Receive', (data) => {
       this.data = data;
       console.log(data);
+      return data;
     });
   }
   public SendMessage(str: string) {
