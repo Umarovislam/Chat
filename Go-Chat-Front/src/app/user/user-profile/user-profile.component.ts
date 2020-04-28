@@ -39,8 +39,8 @@ export class UserProfileComponent implements OnInit {
           this.me = data;
           this.EditForm.setValue(data);
         }
-      );
-  }
+      );}
+
   public getUserProfile() {
     this.userService.getUserByUserName()
       .pipe(tap(_ => console.log(_)))

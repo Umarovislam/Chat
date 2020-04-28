@@ -30,7 +30,7 @@ const routes: Routes = [
       {path:   'login', component: LoginComponent},
     ]
   },
-  {path: 'user/profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'user/profile', component: UserProfileComponent}, // canActivate: [AuthGuard]},
   {
     path: 'home', component: HomeComponent, canActivate: [AuthGuard],
     children: [
