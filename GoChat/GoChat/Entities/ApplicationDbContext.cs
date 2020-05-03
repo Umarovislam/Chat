@@ -9,22 +9,9 @@ namespace GoChat.Entities
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-            optionsBuilder.UseMySql(GetConnectionString());
-        }
 
-        private static string GetConnectionString()
-        {
-            const string databaseName = "gochatdb";
-            const string databaseUser = "root";
-            const string databasePass = "0898";
-
-            return $"Server=localhost;" +
-                   $"database={databaseName};" +
-                   $"uid={databaseUser};" +
-                   $"pwd={databasePass};" +
-                   $"pooling=true;";
         }
     }
 }

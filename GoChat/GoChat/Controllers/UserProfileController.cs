@@ -1,8 +1,10 @@
 ﻿using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using GoChat.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,32 +16,21 @@ namespace GoChat.Controllers
     public class UserProfileController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
-        public UserProfileController(UserManager<ApplicationUser> userManager)
+        private readonly ApplicationDbContext _db;
+
+        public UserProfileController(UserManager<ApplicationUser> userManager, ApplicationDbContext db)
         {
             this._userManager = userManager;
+            this._db = db;
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<object> GetUserProfile(string Id)
-        {
-            var user = await _userManager.FindByIdAsync(Id);
-            return new
-            {
-                user.Name,
-                user.Email,
-                user.UserName,
-                user.PhoneNumber,
-                user.Avatar
-            };
-        }
-
-        [HttpGet]
-        [Authorize]
+        //[Authorize]
+        [AllowAnonymous]
         public async Task<object> GetUser(string UserName)
         {
             var user = await _userManager.FindByNameAsync(UserName);
-            if(user != null)
+            if (user != null)
             {
                 return new
                 {
@@ -55,25 +46,49 @@ namespace GoChat.Controllers
         }
 
         [HttpPut]
-        [Authorize (AuthenticationSchemes = "Bearer")]
-        public async Task<object> UpdateUser(UserInfo user)
+        [Authorize]
+        public async Task<IActionResult> UpdateAvatar(string userId)
         {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return BadRequest("User not found");
+            var file = HttpContext.Request.Form.Files?.First();
+            var folderName = Path.Combine("Resources", "Images");
+            
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
-            user.PictureUrl = Request.Form.Files[0];
-            using (var fileStream = new FileStream($"/Images/{user.PictureUrl.FileName}", FileMode.Create))
+            if (file.Length > 0)
             {
-                await user.PictureUrl.CopyToAsync(fileStream);
-            }
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                var _user = db.Users.FindAsync(user.Email).Result;
-                _user.Name = user.Name;
-                _user.Avatar = user.PictureUrl.FileName;
-                _user.UserName = user.UserName;
-                db.Entry(_user).State = EntityState.Modified;
-            }
+                var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                var dbPath = Path.Combine(folderName, fileName);
 
-            return Ok();
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                user.Avatar = dbPath;
+                await _userManager.UpdateAsync(user);
+                return Ok(new { dbPath });
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser([FromBody] UserInfo user)
+        {
+            var _user = await _db.Users.FindAsync(user.Email);
+            if (_user != null)
+            {
+                _db.Entry(user).State = EntityState.Modified;
+                return Ok();
+            }
+            return BadRequest("User not found");
         }
     }
 }

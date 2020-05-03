@@ -18,6 +18,6 @@ namespace GoChat.Entities
         public string Email ;
         public string UserName;
         public string PhoneNumber;
-        public IFormFile PictureUrl;
+        public string Avatar;
     }
 }

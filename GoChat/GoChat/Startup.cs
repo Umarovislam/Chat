@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using BLL.Interfaces;
 using BLL.Services;
 using GoChat.DAL.Interfaces;
@@ -9,12 +10,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Encoding = System.Text.Encoding;
 
 namespace GoChat
@@ -45,8 +50,19 @@ namespace GoChat
                 );
 
             });
-            services.AddDbContext<ApplicationDbContext>();
-            
+
+
+            services.AddDbContextPool<ApplicationDbContext>(options => options
+                // replace with your connection string
+                .UseMySql("Server=localhost;Database=gochatdb;User=root;Password=0898;", mySqlOptions => mySqlOptions
+                    // replace with your Server Version and Type
+                    .ServerVersion(new Version(8, 0, 18), ServerType.MySql)
+            ));
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;});
+
             // ===== Add Identity ========
             services.AddIdentity<ApplicationUser,IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -105,18 +121,22 @@ namespace GoChat
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();
-            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chat");
             });
             app.UseCors("AllowAllOriginsPolicy");
-            app.UseStaticFiles();
             #region Swagger documentation pages
 
             app.UseSwagger();

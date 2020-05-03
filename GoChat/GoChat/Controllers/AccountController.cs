@@ -67,9 +67,9 @@ namespace GoChat.Controllers
                     "Account",
                     new { userId = user.Id, code = code },
                     protocol: HttpContext.Request.Scheme);
-                SendGridEmailSender emailService = new SendGridEmailSender();
-                await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                    $"Confirm Registration : <a href='http://localhost:4200/user/login'>link</a>");
+                //SendGridEmailSender emailService = new SendGridEmailSender();
+                //await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                //    $"Confirm Registration : <a href='http://localhost:4200/user/login'>link</a>");
                 await _signInManager.SignInAsync(user, false);
                 return Content("Confirm Registration by email");
             }

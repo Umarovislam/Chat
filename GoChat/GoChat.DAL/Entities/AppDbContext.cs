@@ -12,7 +12,7 @@ namespace GoChat.DAL.Entities
     public class AppDbContext : IdentityDbContext<AppUser>
     {
         public DbSet<Room> Rooms { get; set; }
-
+        public DbSet<AppUser> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
         public AppDbContext()
             : base()
