@@ -11,12 +11,14 @@ input.form-control:focus{
 
 button[type=submit].btn{
   border-radius: 20px;
-  background-color: #04c582;
+  background-color: #f8f0f085;
   color: #fff;
+  font: bold;
 }
 
-div.form-group label:not(.text-danger){
-  color: #545d6a;
+
+div.form-group label{
+  color: #fff;
   font-weight: 700;
 }
 
@@ -42,7 +44,7 @@ div.form-group.required>label:first-child:after{
 .wrapped-div {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
-  background: #2e3137;
+  background: #737d92;
   padding: 30px;
   width: 90%;
   max-width: 450px;
